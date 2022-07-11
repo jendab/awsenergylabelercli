@@ -103,6 +103,9 @@ jobs:
       - name: Show current directory listing
         run: ls -alh
 
+      - name: Rename tarball
+        run: mv awsenergylabelercli-${RELEASE_VERSION}.tar.gz awsenergylabelercli.tar.gz
+
       - name: Build docker image 
         run:  docker build -t awsenergylabelercli .
 

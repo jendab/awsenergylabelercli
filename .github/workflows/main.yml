@@ -33,6 +33,12 @@ jobs:
       - name: Build
         run: _CI/scripts/build.py
 
+      - name: Upload built package
+        uses: actions/upload-artifact@v3
+        with:
+          name: awsenergylabelercli-latest
+          path: dist
+
   release:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     needs: build
@@ -86,6 +92,11 @@ jobs:
       - name: Configure docker for GCP
         run: gcloud auth configure-docker
 
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: awsenergylabelercli-latest
+      
       - name: Build docker image
         run:  docker build -t gcr.io/perfect-period-356018/awsenergylabelercli:latest .
 

@@ -72,18 +72,6 @@ jobs:
     environment:
       name: release
     steps:
-      - name: Get version
-        run: echo "RELEASE_VERSION=`cat .VERSION`" >> $GITHUB_ENV
-
-      - name: Show current dir
-        run: pwd
-
-      - name: Show current directory listing
-        run: ls -alh
-
-      - name: Show parent directory
-        run: ls -alh ..
-
       - name: Checkout sources
         uses: actions/checkout@v2
 
@@ -102,6 +90,9 @@ jobs:
       
       - name: Show current directory listing
         run: ls -alh
+
+      - name: Get version
+        run: echo "RELEASE_VERSION=`cat .VERSION`" >> $GITHUB_ENV
 
       - name: Rename tarball
         run: mv awsenergylabelercli-${RELEASE_VERSION}.tar.gz awsenergylabelercli.tar.gz

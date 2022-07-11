@@ -69,6 +69,12 @@ jobs:
       - name: Show current dir
         run: pwd
 
+      - name: Show current directory listing
+        run: ls -alh
+
+      - name: Show parent directory
+        run: ls -alh ..
+
       - name: Checkout sources
         uses: actions/checkout@v2
 

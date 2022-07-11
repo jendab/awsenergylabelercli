@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: awsenergylabelercli-latest
-          path: dist
+          path: dist/awsenergylabelercli-*.tar.gz
 
   release:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
@@ -72,6 +72,9 @@ jobs:
     environment:
       name: release
     steps:
+      - name: Get version
+        run: echo "RELEASE_VERSION=`cat .VERSION`" >> $GITHUB_ENV
+
       - name: Show current dir
         run: pwd
 
@@ -97,8 +100,20 @@ jobs:
         with:
           name: awsenergylabelercli-latest
       
-      - name: Build docker image
-        run:  docker build -t gcr.io/perfect-period-356018/awsenergylabelercli:latest .
+      - name: Show current directory listing
+        run: ls -alh
 
-      - name: Push to Google Container Registry
+      - name: Build docker image 
+        run:  docker build -t awsenergylabelercli .
+
+      - name: Tag container for current version
+        run: docker tag awsenergylabelercli gcr.io/perfect-period-356018/awsenergylabelercli:${RELEASE_VERSION}
+
+      - name: Tag container as latest
+        run: docker tag awsenergylabelercli gcr.io/perfect-period-356018/awsenergylabelercli:latest
+
+      - name: Push to Google Container Registry as version
+        run:  docker push gcr.io/perfect-period-356018/awsenergylabelercli:${RELEASE_VERSION}
+
+      - name: Push to Google Container Registry as latest
         run:  docker push gcr.io/perfect-period-356018/awsenergylabelercli:latest

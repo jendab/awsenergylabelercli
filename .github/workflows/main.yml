@@ -87,9 +87,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: awsenergylabelercli-latest
-      
-      - name: Show current directory listing
-        run: ls -alh
 
       - name: Get version
         run: echo "RELEASE_VERSION=`cat .VERSION`" >> $GITHUB_ENV
@@ -97,7 +94,7 @@ jobs:
       - name: Rename tarball
         run: mv awsenergylabelercli-${RELEASE_VERSION}.tar.gz awsenergylabelercli.tar.gz
 
-      - name: Build docker image 
+      - name: Build docker image
         run:  docker build -t awsenergylabelercli .
 
       - name: Tag container for current version

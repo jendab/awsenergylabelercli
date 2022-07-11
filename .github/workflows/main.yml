@@ -60,7 +60,7 @@ jobs:
           PYPI_UPLOAD_PASSWORD: ${{ secrets.PYPI_UPLOAD_PASSWORD }}
 
   container_release:
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    if: github.event_name == 'push'
       needs: build
       runs-on: ubuntu-latest
       environment:
@@ -78,7 +78,7 @@ jobs:
           run: gcloud auth configure-docker
 
         - name: Build docker image
-          run:  docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/awsenergylabelercli:latest .
+          run:  docker build -t gcr.io/perfect-period-356018/awsenergylabelercli:latest .
 
         - name: Push to Google Container Registry
-          run:  docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/awsenergylabelercli:latest
+          run:  docker push gcr.io/perfect-period-356018/awsenergylabelercli:latest

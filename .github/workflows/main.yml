@@ -61,24 +61,24 @@ jobs:
 
   container_release:
     if: github.event_name == 'push'
-      needs: build
-      runs-on: ubuntu-latest
-      environment:
-        name: release
-      steps:
-        - name: Checkout sources
-          uses: actions/checkout@v2
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: release
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
 
-        - name: Setup gcloud
-          uses: google-github-actions/auth@v0
-          with:
-            credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-            
-        - name: Configure docker for GCP
-          run: gcloud auth configure-docker
+      - name: Setup gcloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          
+      - name: Configure docker for GCP
+        run: gcloud auth configure-docker
 
-        - name: Build docker image
-          run:  docker build -t gcr.io/perfect-period-356018/awsenergylabelercli:latest .
+      - name: Build docker image
+        run:  docker build -t gcr.io/perfect-period-356018/awsenergylabelercli:latest .
 
-        - name: Push to Google Container Registry
-          run:  docker push gcr.io/perfect-period-356018/awsenergylabelercli:latest
+      - name: Push to Google Container Registry
+        run:  docker push gcr.io/perfect-period-356018/awsenergylabelercli:latest

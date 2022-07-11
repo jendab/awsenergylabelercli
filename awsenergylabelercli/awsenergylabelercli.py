@@ -99,7 +99,7 @@ def get_arguments():
     scope.add_argument('--landing-zone-name',
                        '-n',
                        type=str,
-                       default=os.environ.get('LANDING_ZONE_NAME')
+                       default=os.environ.get('LANDING_ZONE_NAME'),
                        help='The name of the Landing Zone to label. '
                             'Mutually exclusive with --single-account-id argument.')
     single_account_action = scope.add_argument('--single-account-id',
@@ -108,7 +108,7 @@ def get_arguments():
                                                dest='single_account_id',
                                                action='store',
                                                type=aws_account_id,
-                                               default=os.environ.get('SINGLE_ACCOUNT_ID')
+                                               default=os.environ.get('SINGLE_ACCOUNT_ID'),
                                                help='Run the labeler on a single account. '
                                                     'Mutually exclusive with --landing-zone-name argument.')
     parser.add_argument('--region',
@@ -159,7 +159,7 @@ def get_arguments():
                         '-p',
                         action=ValidatePath,
                         required=False,
-                        default=os.environ.get('EXPORT_PATH')
+                        default=os.environ.get('EXPORT_PATH'),
                         help='Exports a snapshot of chosen data in '
                              'JSON formatted files to the specified directory or S3 location.')
     export_options = parser.add_mutually_exclusive_group()
@@ -168,7 +168,7 @@ def get_arguments():
                                 action='store_const',
                                 dest='export_all',
                                 const=False,
-                                default=os.environ.get('EXPORT_METRICS')
+                                default=os.environ.get('EXPORT_METRICS'),
                                 help='Exports metrics/statistics along with findings data in '
                                      'JSON formatted files to the specified directory or S3 location.')
     export_options.add_argument('--export-all',
@@ -176,7 +176,7 @@ def get_arguments():
                                 action='store_const',
                                 dest='export_all',
                                 const=True,
-                                default=os.environ.get('EXPORT_ALL', True)
+                                default=os.environ.get('EXPORT_ALL', True),
                                 help='Exports metrics/statistics without sensitive findings data in '
                                      'JSON formatted files to the specified directory or S3 location.')
     parser.add_argument('--to-json',

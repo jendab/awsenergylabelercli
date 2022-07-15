@@ -125,7 +125,7 @@ jobs:
           REGISTRY: ${{ secrets.AWS_ECR_PRIVATE_REPO }}
           REPOSITORY: awsenergylabelercli
         run: |
-          docker tag awsenergylabelercli 747966750797.dkr.ecr.eu-west-1.amazonaws.com/awsenergylabelercli:latest
-          docker tag awsenergylabelercli:latest 747966750797.dkr.ecr.eu-west-1.amazonaws.com/awsenergylabelercli:${RELEASE_VERSION}
-          docker push 747966750797.dkr.ecr.eu-west-1.amazonaws.com/awsenergylabelercli:latest
-          docker push 747966750797.dkr.ecr.eu-west-1.amazonaws.com/awsenergylabelercli:${RELEASE_VERSION}
+          docker tag awsenergylabelercli ${AWS_ECR_PRIVATE_REPO}/${REPOSITORY}:${RELEASE_VERSION}
+          docker tag awsenergylabelercli ${AWS_ECR_PRIVATE_REPO}/${REPOSITORY}:latest
+          docker push ${AWS_ECR_PRIVATE_REPO}/${REPOSITORY}:${RELEASE_VERSION}
+          docker push ${AWS_ECR_PRIVATE_REPO}/${REPOSITORY}:latest

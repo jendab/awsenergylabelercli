@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-
 flake8 = "==3.8.0"
 sphinx = "~=2.1.2"
 sphinx-rtd-theme = "~=0.4.3"
@@ -21,13 +20,13 @@ emoji = "~=0.5.3"
 toml = "~=0.10.0"
 
 [packages]
-
 coloredlogs = "~=10.0"
 awsenergylabelerlib = "~=1.1.1"
 boto3 = "~=1.19.12"
 yaspin = "~=2.1.0"
 terminaltables = "~=3.1.0"
 art = "~=5.3"
+typer = "*"
 
 [requires]
 python_version = "3.7"

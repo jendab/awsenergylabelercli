@@ -95,7 +95,7 @@ def get_arguments():
                                  'warning',
                                  'error',
                                  'critical'])
-    scope = parser.add_mutually_exclusive_group(required=True)
+    scope = parser.add_mutually_exclusive_group(required=not (os.environ.get('LANDING_ZONE_NAME') or os.environ.get('SINGLE_ACCOUNT_ID')))
     scope.add_argument('--landing-zone-name',
                        '-n',
                        type=str,
@@ -169,7 +169,7 @@ def get_arguments():
                                 dest='export_all',
                                 const=False,
                                 default=os.environ.get('EXPORT_METRICS'),
-                                help='Exports metrics/statistics along with findings data in '
+                                help='Exports metrics/statistics without sensitive findings data in '
                                      'JSON formatted files to the specified directory or S3 location.')
     export_options.add_argument('--export-all',
                                 '-ea',
@@ -177,7 +177,7 @@ def get_arguments():
                                 dest='export_all',
                                 const=True,
                                 default=os.environ.get('EXPORT_ALL', True),
-                                help='Exports metrics/statistics without sensitive findings data in '
+                                help='Exports metrics/statistics along with findings data in '
                                      'JSON formatted files to the specified directory or S3 location.')
     parser.add_argument('--to-json',
                         '-j',
